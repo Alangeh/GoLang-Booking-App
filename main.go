@@ -9,7 +9,7 @@ func main(){
 
 	var remainingTickets = 50
 
-	fmt.Println("Welcome to ",conferenceName,"  booking application")
+	fmt.Printf("Welcome to %v booking application\n", conferenceName)
 
 	fmt.Println("We have a total of",conferenceTickets,"and ",remainingTickets,"are still available")
 
