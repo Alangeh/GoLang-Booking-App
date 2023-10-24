@@ -24,5 +24,5 @@ func main() {
 
 	userTickets = 20
 
-	fmt.Printf("User %v booked %v tickets. \m", userName, userTickets)
+	fmt.Printf("User %v booked %v tickets. \n", userName, userTickets)
 }
