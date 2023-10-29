@@ -33,29 +33,28 @@ func main() {
 		fmt.Println("Enter Number of tickets")
 		fmt.Scan(&userTickets)
 
-		if userTickets > remainingTickets {
+		if userTickets <= remainingTickets {
+			remainingTickets = remainingTickets - userTickets
+			bookings[0] = firstName + " " + lastName
+			booker = append(booker, firstName+" "+lastName)
+
+			fmt.Printf("Thank you %v %v for booking %v tickets, you will receive a confirmtion email at %v\n", firstName, lastName, userTickets, email)
+			fmt.Printf("%v tickets remaining for %v \n", remainingTickets, conferenceName)
+
+			firstNames := []string{}
+			for _, booking := range booker { // the underscore represents a blank identifier, for variables not used. used _ instead of index
+				var names = strings.Fields(booking)
+				firstNames = append(firstNames, names[0])
+			}
+			fmt.Printf("These are all our boookings: %v\n", firstNames)
+
+			if remainingTickets == 0 {
+				// end program
+				fmt.Println("Our conference is booked out, come back next year")
+				break
+			}
+		} else {
 			fmt.Printf("We only have %v tickets remaining, so you can't book %v tickets\n", remainingTickets, userTickets)
-			continue
-		}
-
-		remainingTickets = remainingTickets - userTickets
-		bookings[0] = firstName + " " + lastName
-		booker = append(booker, firstName+" "+lastName)
-
-		fmt.Printf("Thank you %v %v for booking %v tickets, you will receive a confirmtion email at %v\n", firstName, lastName, userTickets, email)
-		fmt.Printf("%v tickets remaining for %v \n", remainingTickets, conferenceName)
-
-		firstNames := []string{}
-		for _, booking := range booker { // the underscore represents a blank identifier, for variables not used. used _ instead of index
-			var names = strings.Fields(booking)
-			firstNames = append(firstNames, names[0])
-		}
-		fmt.Printf("These are all our boookings: %v\n", firstNames)
-
-		if remainingTickets == 0 {
-			// end program
-			fmt.Println("Our conference is booked out, come back next year")
-			break
 		}
 	}
 
