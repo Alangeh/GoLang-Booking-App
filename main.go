@@ -46,25 +46,11 @@ func main() {
 			fmt.Printf("Thank you %v %v for booking %v tickets, you will receive a confirmtion email at %v\n", firstName, lastName, userTickets, email)
 			fmt.Printf("%v tickets remaining for %v \n", remainingTickets, conferenceName)
 
-			firstNames := []string{}
-			for _, booking := range booker { // the underscore represents a blank identifier, for variables not used. used _ instead of index
-				var names = strings.Fields(booking)
-				firstNames = append(firstNames, names[0])
-			}
+			cityCase := 2
+			firstNames := getFirstName(booker)
+			city := getCity(cityCase)
 			fmt.Printf("These are all our boookings: %v\n", firstNames)
 
-			cityCase := 2
-			city := "London"
-			switch cityCase {
-			case 1:
-				city = "London"
-			case 2, 4:
-				city = "New York"
-			case 3:
-				city = "Singapore"
-			default:
-				city = "Paris"
-			}
 			if remainingTickets == 0 {
 				// end program
 				fmt.Println("Our conference is booked out, come back next year")
@@ -90,4 +76,28 @@ func greetUsers(confName string, confTickets int, remainingTickets uint) {
 	fmt.Printf("Welcome to %v booking application\n", confName)
 	fmt.Println("We have a total of", confTickets, "and ", remainingTickets, "are still available")
 	fmt.Println("Get your tickets here to attend")
+}
+
+func getFirstName(booker []string) []string {
+	firstNames := []string{}
+	for _, booking := range booker { // the underscore represents a blank identifier, for variables not used. used _ instead of index
+		var names = strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+	return firstNames
+}
+
+func getCity(cityCase int) string {
+	city := "London"
+	switch cityCase {
+	case 1:
+		city = "London"
+	case 2, 4:
+		city = "New York"
+	case 3:
+		city = "Singapore"
+	default:
+		city = "Paris"
+	}
+	return city
 }
