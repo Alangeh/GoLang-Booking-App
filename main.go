@@ -13,6 +13,8 @@ func main() {
 	var booker []string     // slice
 	// booker := []string{} // alternative syntax for slice
 
+	greetUsers()
+
 	fmt.Printf("Welcome to %v booking application\n", conferenceName)
 	fmt.Println("We have a total of", conferenceTickets, "and ", remainingTickets, "are still available")
 	fmt.Println("Get your tickets here to attend")
@@ -86,4 +88,8 @@ func main() {
 		}
 	}
 
+}
+
+func greetUsers() {
+	fmt.Println("Welcome to our conference")
 }
