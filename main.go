@@ -55,9 +55,22 @@ func main() {
 			}
 			fmt.Printf("These are all our boookings: %v\n", firstNames)
 
+			cityCase := 2
+			city := "London"
+			switch cityCase {
+			case 1:
+				city = "London"
+			case 2, 4:
+				city = "New York"
+			case 3:
+				city = "Singapore"
+			default:
+				city = "Paris"
+			}
 			if remainingTickets == 0 {
 				// end program
 				fmt.Println("Our conference is booked out, come back next year")
+				fmt.Printf("See you in %v for the conference", city)
 				break
 			}
 		} else {
