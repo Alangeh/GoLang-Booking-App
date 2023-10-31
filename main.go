@@ -5,27 +5,29 @@ import (
 	"strings"
 )
 
-func main() {
-	conferenceName := "Go Conference"
-	const conferenceTickets = 50
-	var remainingTickets uint = 50
-	//var bookings [50]string //array
-	var booker []string // slice
-	// booker := []string{} // alternative syntax for slice
+const conferenceTickets = 50
 
-	greetUsers(conferenceName, conferenceTickets, remainingTickets)
+var conferenceName = "Go Conference"
+var remainingTickets uint = 50
+var booker []string // slice
+//var bookings [50]string //array
+// booker := []string{} // alternative syntax for slice
+
+func main() {
+
+	greetUsers()
 
 	for {
 		firstName, lastName, email, userTickets := getUserInput()
 
-		isValidName, isValidEmail, isValidTicket := validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
+		isValidName, isValidEmail, isValidTicket := validateUserInput(firstName, lastName, email, userTickets)
 
 		if isValidName && isValidEmail && isValidTicket {
 
-			bookTicket(remainingTickets, userTickets, booker, firstName, lastName, email, conferenceName)
+			bookTicket(remainingTickets, userTickets, firstName, lastName, email)
 
 			cityCase := 2
-			firstNames := getFirstName(booker)
+			firstNames := getFirstName()
 			city := getCity(cityCase)
 			fmt.Printf("These are all our boookings: %v\n", firstNames)
 
@@ -50,13 +52,13 @@ func main() {
 
 }
 
-func greetUsers(confName string, confTickets int, remainingTickets uint) {
-	fmt.Printf("Welcome to %v booking application\n", confName)
-	fmt.Println("We have a total of", confTickets, "and ", remainingTickets, "are still available")
+func greetUsers() {
+	fmt.Printf("Welcome to %v booking application\n", conferenceName)
+	fmt.Println("We have a total of", conferenceTickets, "and ", remainingTickets, "are still available")
 	fmt.Println("Get your tickets here to attend")
 }
 
-func getFirstName(booker []string) []string {
+func getFirstName() []string {
 	firstNames := []string{}
 	for _, booking := range booker { // the underscore represents a blank identifier, for variables not used. used _ instead of index
 		var names = strings.Fields(booking)
@@ -84,8 +86,7 @@ func validateUserInput(
 	firstName string,
 	lastName string,
 	email string,
-	userTickets uint,
-	remainingTickets uint) (bool, bool, bool) {
+	userTickets uint) (bool, bool, bool) {
 	isValidName := len(firstName) >= 2 && len(lastName) >= 2
 	isValidEmail := strings.Contains(email, "@")
 	isValidTicket := userTickets > 0 && userTickets <= remainingTickets
@@ -117,11 +118,9 @@ func getUserInput() (string, string, string, uint) {
 
 func bookTicket(remainingTickets uint,
 	userTickets uint,
-	booker []string,
 	firstName string,
 	lastName string,
-	email string,
-	conferenceName string) {
+	email string) {
 	remainingTickets = remainingTickets - userTickets
 	//bookings[0] = firstName + " " + lastName
 	booker = append(booker, firstName+" "+lastName)
