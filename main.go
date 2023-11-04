@@ -3,6 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -118,6 +119,7 @@ func bookTicket(remainingTickets uint,
 	userData["firstName"] = firstName
 	userData["lastName"] = lastName
 	userData["email"] = email
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
 
 	booker = append(booker, firstName+" "+lastName)
 
