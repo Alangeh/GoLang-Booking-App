@@ -36,7 +36,7 @@ func main() {
 		if isValidName && isValidEmail && isValidTicket {
 
 			bookTicket(remainingTickets, userTickets, firstName, lastName, email)
-			sendTicket(userTickets, firstName, lastName, email)
+			go sendTicket(userTickets, firstName, lastName, email)
 			cityCase := 2
 			firstNames := getFirstName()
 			city := getCity(cityCase)
