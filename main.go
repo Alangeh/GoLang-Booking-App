@@ -4,14 +4,13 @@ import (
 	"booking-app/helper"
 	"fmt"
 	"strconv"
-	"strings"
 )
 
 const conferenceTickets = 50
 
 var conferenceName = "Go Conference"
 var remainingTickets uint = 50
-var booker []string // slice
+var booker = make([]map[string]string, 0) // slice
 //var bookings [50]string //array
 // booker := []string{} // alternative syntax for slice
 
@@ -64,7 +63,7 @@ func getFirstName() []string {
 	firstNames := []string{}
 	for _, booking := range booker { // the underscore represents a blank identifier, for variables not used. used _ instead of index
 		var names = strings.Fields(booking)
-		firstNames = append(firstNames, names[0])
+		firstNames = append(firstNames, booking["firstName"])
 	}
 	return firstNames
 }
@@ -121,7 +120,8 @@ func bookTicket(remainingTickets uint,
 	userData["email"] = email
 	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
 
-	booker = append(booker, firstName+" "+lastName)
+	booker = append(booker, userData)
+	fmt.Printf("List of bookings is %v\n", booker)
 
 	fmt.Printf("Thank you %v %v for booking %v tickets, you will receive a confirmtion email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("%v tickets remaining for %v \n", remainingTickets, conferenceName)
