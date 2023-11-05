@@ -3,21 +3,24 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"time"
 )
 
 const conferenceTickets = 50
 
 var conferenceName = "Go Conference"
 var remainingTickets uint = 50
-//var booker = make([]map[string]string, 0) // slice of maps
+
+// var booker = make([]map[string]string, 0) // slice of maps
 var booker = make([]UserData, 0) // slice of struct
 
 type UserData struct {
-	firstName string
-	lastName string
-	email string
+	firstName       string
+	lastName        string
+	email           string
 	numberOfTickets uint
 }
+
 //var bookings [50]string //array
 // booker := []string{} // alternative syntax for slice
 
@@ -33,7 +36,7 @@ func main() {
 		if isValidName && isValidEmail && isValidTicket {
 
 			bookTicket(remainingTickets, userTickets, firstName, lastName, email)
-
+			sendTicket(userTickets, firstName, lastName, email)
 			cityCase := 2
 			firstNames := getFirstName()
 			city := getCity(cityCase)
@@ -121,10 +124,10 @@ func bookTicket(remainingTickets uint,
 	//bookings[0] = firstName + " " + lastName
 
 	//create a map for a user
-	var userData = UserData {
-		firstName: firstName,
-		lastName: lastName,
-		email: email,
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
 		numberOfTickets: userTickets,
 	}
 
@@ -134,4 +137,12 @@ func bookTicket(remainingTickets uint,
 	fmt.Printf("Thank you %v %v for booking %v tickets, you will receive a confirmtion email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("%v tickets remaining for %v \n", remainingTickets, conferenceName)
 
+}
+
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	time.Sleep(10 * time.Second)
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
+	fmt.Println("#####################")
+	fmt.Printf("Sending ticket :\n %v \nto email address %v\n", ticket, email)
+	fmt.Println("#####################")
 }
