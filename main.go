@@ -3,14 +3,21 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strconv"
 )
 
 const conferenceTickets = 50
 
 var conferenceName = "Go Conference"
 var remainingTickets uint = 50
-var booker = make([]map[string]string, 0) // slice
+//var booker = make([]map[string]string, 0) // slice of maps
+var booker = make([]UserData, 0) // slice of struct
+
+type UserData struct {
+	firstName string
+	lastName string
+	email string
+	numberOfTickets uint
+}
 //var bookings [50]string //array
 // booker := []string{} // alternative syntax for slice
 
@@ -62,8 +69,8 @@ func greetUsers() {
 func getFirstName() []string {
 	firstNames := []string{}
 	for _, booking := range booker { // the underscore represents a blank identifier, for variables not used. used _ instead of index
-		var names = strings.Fields(booking)
-		firstNames = append(firstNames, booking["firstName"])
+		//var names = strings.Fields(booking)
+		firstNames = append(firstNames, booking.firstName)
 	}
 	return firstNames
 }
@@ -114,11 +121,12 @@ func bookTicket(remainingTickets uint,
 	//bookings[0] = firstName + " " + lastName
 
 	//create a map for a user
-	var userData = make(map[string]string)
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	var userData = UserData {
+		firstName: firstName,
+		lastName: lastName,
+		email: email,
+		numberOfTickets: userTickets,
+	}
 
 	booker = append(booker, userData)
 	fmt.Printf("List of bookings is %v\n", booker)
