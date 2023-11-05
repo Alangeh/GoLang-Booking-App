@@ -3,6 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -24,6 +25,8 @@ type UserData struct {
 //var bookings [50]string //array
 // booker := []string{} // alternative syntax for slice
 
+var wg = sync.WaitGroup{}
+
 func main() {
 
 	greetUsers()
@@ -36,7 +39,9 @@ func main() {
 		if isValidName && isValidEmail && isValidTicket {
 
 			bookTicket(remainingTickets, userTickets, firstName, lastName, email)
-			go sendTicket(userTickets, firstName, lastName, email)// go keyword implements asynchronous programming
+
+			wg.Add(1) // 1 is number of threads
+			go sendTicket(userTickets, firstName, lastName, email) // go keyword implements asynchronous programming
 			cityCase := 2
 			firstNames := getFirstName()
 			city := getCity(cityCase)
@@ -60,7 +65,7 @@ func main() {
 			}
 		}
 	}
-
+	wg.Wait()
 }
 
 func greetUsers() {
@@ -145,4 +150,5 @@ func sendTicket(userTickets uint, firstName string, lastName string, email strin
 	fmt.Println("#####################")
 	fmt.Printf("Sending ticket :\n %v \nto email address %v\n", ticket, email)
 	fmt.Println("#####################")
+	wg.Done()
 }
